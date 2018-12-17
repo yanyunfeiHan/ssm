@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.ssm.mapper.CategoryMapper" >
+  <resultMap id="ManyToNews" type="com.zking.ssm.model.Category" >
+    <id column="category_id" property="categoryId"/>
+    <result column="category_name" property="categoryName"/>
+    <collection property="manyNews" ofType="com.zking.ssm.model.News">
+      <id column="news_id" property="newsId"/>
+      <result column="title" property="title"/>
+    </collection>
+  </resultMap>
+  <select id="queryCategoryAll" resultMap="ManyToNews">
+      SELECT c.*,n.* FROM t_news n,t_category c,t_news_category nc
+      WHERE n.news_id=nc.nid AND c.category_id=nc.cid
+  </select>
+
+</mapper>
